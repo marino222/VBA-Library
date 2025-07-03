@@ -1,0 +1,39 @@
+name: Auto-generate AllSnippets
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-all:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Wiki
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki
+
+      - name: Generate AllSnippets page
+        run: |
+          cd wiki
+          echo "# Alle VBA-Snippets" > AllSnippets.md
+          echo "" >> AllSnippets.md
+          for f in $(ls *.md | grep -vE '^(_Sidebar|AllSnippets)\.md$' | sort); do
+            name="${f%.md}"
+            echo "<details>" >> AllSnippets.md
+            echo "<summary>🔽 ${name}</summary>" >> AllSnippets.md
+            echo "" >> AllSnippets.md
+            sed -n '/^```vb/,/^```/p' "$f" >> AllSnippets.md
+            echo "" >> AllSnippets.md
+            echo "</details>" >> AllSnippets.md
+            echo "" >> AllSnippets.md
+          done
+
+      - name: Commit & Push AllSnippets
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: github-actions[bot]
+          author_email: github-actions[bot]@users.noreply.github.com
+          message: chore: regenerate AllSnippets
+          push: true
