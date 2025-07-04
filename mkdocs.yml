@@ -15,7 +15,11 @@ nav:
   - Funktionen: index.md
 
 markdown_extensions:
-  - codehilite:
-      guess_lang: false    
-  - pymdownx.highlight: 
-      anchor_linenums: true
+  - pymdownx.highlight:
+      use_pygments: true    # Build-Zeit Highlighting mit Pygments aktivieren
+      pygments_lang_class: true  # Sprach-Klasse ans <code> hängen
+      line_spans: "__span"       # notwendig, damit jede Zeile in <span> kommt
+      anchor_linenums: true      # falls du Zeilennummern nutzt
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
