@@ -479,7 +479,29 @@ Public Function MIN(val1 As Double, val2 As Double) As Double
 End Function
 ```
 
+## FileIsReleased
+Überprüft, ob eine Datei freigegeben ist und gibt True zurück, wenn das der Fall ist.
+Ansonsten wird False zurückgegeben
+**Hinweis:**  Diese Funktion verwendet `GetIEdmFileFromPath`
 
+```vbnet
+Public Function FileIsReleased(modelDoc As SldWorks.ModelDoc2) As Boolean
+    'Überprüft, ob eine Datei Freigegeben ist
+    '
+    'Argumente: modelDoc (ModelDoc2) der zu überprüfenden Datei
+    'Rückgabewert: True = Freigegeben, ansonsten False (Boolean)
+    
+    Dim schemaFile As IEdmFile5
+    Set schemaFile = GetIEdmFileFromPath(modelDoc.GetPathName)
+    
+    'Wenn das Schema Freigegeben ist, Fehler ausgeben und Makro beenden
+    If schemaFile.currentState.Name = "Freigegeben" Then
+        FileIsReleased = True
+    Else
+        FileIsReleased = False
+    End If
+End Function
+```
 
 
 
