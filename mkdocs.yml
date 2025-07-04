@@ -10,3 +10,8 @@ theme:
 
 nav:
   - Funktionen: index.md
+
+markdown_extensions:
+  - codehilite:
+      guess_lang: false
+      pygments_style: friendly
