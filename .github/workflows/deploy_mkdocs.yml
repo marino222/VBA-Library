@@ -21,8 +21,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install MkDocs & Theme
-        run: |
-          pip install mkdocs-material pygments
+        run: pip install mkdocs-material
 
       - name: Build site
         run: mkdocs build --site-dir site
