@@ -10,11 +10,11 @@ theme:
 
 nav:
   - Array-Funktionen:
-    - IsInArray: VBA_Functions.md#isinarray
-    - IsElementUnique: VBA_Functions.md#iselementunique
+    - IsInArray: index.md#isinarray
+    - IsElementUnique: index.md#iselementunique
   - Datei-/Pfad-Funktionen:
-    - ExtractFileNameFromPath: VBA_Functions.md#extractfilenamefrompath
-    - ChangeFileExtension: VBA_Functions.md#changefileextension
+    - ExtractFileNameFromPath: index.md#extractfilenamefrompath
+    - ChangeFileExtension: index.md#changefileextension
   - PDM-/IEdm-Funktionen:
-    - FileExistsInPDM: VBA_Functions.md#fileexistsinpdm
-    - GetFilePathFromIEdmFile: VBA_Functions.md#getfilepathfromiedmfile
+    - FileExistsInPDM: index.md#fileexistsinpdm
+    - GetFilePathFromIEdmFile: index.md#getfilepathfromiedmfile
