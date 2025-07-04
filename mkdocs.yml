@@ -4,10 +4,6 @@ use_directory_urls: false
 
 theme:
   name: material
-  highlightjs: true
-  highlightjs_languages:
-    - vb
-  features:
     - navigation.instant
     - toc.integrate
 
@@ -17,4 +13,4 @@ nav:
 markdown_extensions:
   - codehilite:
       guess_lang: false
-      pygments_style: friendly
+      pygments_style: monokai
