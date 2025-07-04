@@ -2,7 +2,7 @@
 
 Diese Funktion überprüft, ob ein gegebener String (`val`) in einem Array (`arr`) enthalten ist. Gibt `True` zurück, wenn der String im Array gefunden wurde, andernfalls `False`.
 
-```vb
+```vbnet
 Public Function IsInArray(val As String, arr As Variant) As Boolean
     'Prüft, ob der String val im Array arr enthalten ist.
     'Argumente:
@@ -24,7 +24,7 @@ End Function
 
 Extrahiert aus einem vollständigen Dateipfad den Dateinamen und gibt optional die Dateiendung mit zurück.
 
-```vb
+```vbnet
 Public Function ExtractFileNameFromPath(path As String, includeFileExtension As Boolean) As String
     'Extrahiert den Dateinamen aus einem vollständigen Pfad.
     'Argumente:
