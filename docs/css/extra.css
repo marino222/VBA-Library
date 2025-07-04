@@ -1,0 +1,10 @@
+/* runde Ecken für Code-Blöcke */
+.md-typeset pre {
+  border-radius: 0.5rem;       /* hier die Rundung anpassen */
+  overflow: auto;              /* Scrollbars bei Überlauf erhalten */
+}
+
+/* optional: Code-Fenster beschatten */
+.md-typeset pre {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
