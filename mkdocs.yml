@@ -4,6 +4,10 @@ use_directory_urls: false
 
 theme:
   name: material
+  palette:
+    - scheme: slate
+      primary: indigo
+      accent: indigo
   features:
     - navigation.instant
     - toc.integrate
