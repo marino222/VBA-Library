@@ -1,0 +1,16 @@
+site_name: Meine VBA-Funktionen
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - toc.integrate
+nav:
+  - Array-Funktionen:
+    - IsInArray: docs/VBA_Functions.md#isinarray
+    - IsElementUnique: docs/VBA_Functions.md#iselementunique
+  - Datei-/Pfad-Funktionen:
+    - ExtractFileNameFromPath: docs/VBA_Functions.md#extractfilenamefrompath
+    - ChangeFileExtension: docs/VBA_Functions.md#changefileextension
+  - PDM-/IEdm-Funktionen:
+    - FileExistsInPDM: docs/VBA_Functions.md#fileexistsinpdm
+    - GetFilePathFromIEdmFile: docs/VBA_Functions.md#getfilepathfromiedmfile
