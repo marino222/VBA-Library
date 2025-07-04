@@ -503,5 +503,38 @@ Public Function FileIsReleased(modelDoc As SldWorks.ModelDoc2) As Boolean
 End Function
 ```
 
+## EnsureFileIsCheckedOut
+Stellt sicher, dass eine Datei ausgecheckt wird und gibt 0 zurück, wenn das auschecken fehlgeschlagen ist.
+**Hinweis:**  Diese Funktion verwendet `GetIEdmFileFromPath` und `GetParentFolderFromPath`
+
+```vbnet
+Public Function EnsureFileIsCheckedOut(modelDoc As SldWorks.ModelDoc2) As Integer
+    'Diese Funktion stellt sicher, dass eine Datei ausgecheckt wird, falls dies nicht
+    'bereits der Fall ist.
+    '
+    'Argumente: modelDoc (ModelDoc2) der Datei, die ausgecheckt werden soll
+    'Rückgabewerte: 0 = auschecken nicht erfolgreich, 1 = erfolgreich (Integer)
+
+    'Geöffnete Zeichnungsdatei vom PDM entkoppeln, sodass sie im nächsten Schritt via PDM ausgecheckt werden kann.
+    'Ohne ForceReleaseLocks ist das aus -und einchecken von files via PDM API blockiert
+    modelDoc.ForceReleaseLocks
+    
+    Dim edmFile As IEdmFile5
+    Set edmFile = GetIEdmFileFromPath(modelDoc.GetPathName)
+    
+    'Wenn Datei noch nicht ausgecheckt ist, auschecken
+    If Not edmFile.IsLocked Then
+        edmFile.LockFile GetParentFolderFromPath(modelDoc.GetPathName).ID, 0
+    End If
+    
+    'Wenn Datei noch immer nicht ausgecheckt ist, 0 für Error zurückgeben
+    If edmFile.IsLocked Then
+        EnsureFileIsCheckedOut = 0
+    Else
+        EnsureFileIsCheckedOut = 1 '1, wenn alles gut gelaufen ist
+    End If
+End Function
+```
+
 
 
