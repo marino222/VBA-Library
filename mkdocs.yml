@@ -4,19 +4,20 @@ use_directory_urls: false
 
 theme:
   name: material
+  highlightjs: true
+  highlightjs_languages:
+    - vbnet
   features:
     - navigation.instant
     - toc.integrate
     - content.code.copy
+    
 
 nav:
   - Funktionen: index.md
 
 markdown_extensions:
-  - pymdownx.highlight:
+  - codehilite:
+      guess_lang: false    
+  - pymdownx.highlight: 
       anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
