@@ -4,9 +4,7 @@ use_directory_urls: false
 
 theme:
   name: material
-  highlightjs: true
-  highlightjs_languages:
-    - vbnet
+  highlightjs: false
   features:
     - navigation.instant
     - toc.integrate
