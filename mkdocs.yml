@@ -9,12 +9,9 @@ theme:
     - toc.integrate
 
 nav:
-  - Array-Funktionen:
-    - IsInArray: index.md#isinarray
-    - IsElementUnique: index.md#iselementunique
-  - Datei-/Pfad-Funktionen:
-    - ExtractFileNameFromPath: index.md#extractfilenamefrompath
-    - ChangeFileExtension: index.md#changefileextension
-  - PDM-/IEdm-Funktionen:
-    - FileExistsInPDM: index.md#fileexistsinpdm
-    - GetFilePathFromIEdmFile: index.md#getfilepathfromiedmfile
+  - Dateipfad Funktionen:
+    - ExtractFileNameFromPath: #extractfilenamefrompath
+    - ChangeFileExtension: #changefileextension
+  - PDM Funktionen:
+    - FileExistsInPDM: #fileexistsinpdm
+    - GetFilePathFromIEdmFile: #getfilepathfromiedmfile
