@@ -4,6 +4,7 @@ use_directory_urls: false
 
 theme:
   name: material
+  logo: images/reiden_logo.png
   palette:
     - scheme: slate
       primary: "#445469"
