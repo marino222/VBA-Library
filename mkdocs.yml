@@ -4,21 +4,15 @@ use_directory_urls: false
 
 theme:
   name: material
-  highlightjs: false
   features:
     - navigation.instant
     - toc.integrate
     - content.code.copy
 
 markdown_extensions:
-  - pymdownx.superfences         # damit Code-Fences überhaupt beachtet werden
-  - pymdownx.highlight:
-      use_pygments: true         # aktiviere Pygments im Build
-      pygments_lang_class: true  # hänge die Sprachklasse an <code>
-      linenums: false            # oder true, wenn du Zeilennummern willst
-      anchor_linenums: true      # nur relevant, wenn linenums: true
   - codehilite:
-      guess_lang: false          # keine automatische Python-Erkennung
+      guess_lang: false
+      pygments_style: monokai
     
 
 nav:
