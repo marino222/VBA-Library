@@ -12,7 +12,12 @@ theme:
 markdown_extensions:
   - codehilite:
       guess_lang: false
+      linenums: false
       pygments_style: monokai
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      use_pygments: true
+      anchor_linenums: false
     
 
 nav:
