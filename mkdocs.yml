@@ -6,7 +6,7 @@ theme:
   name: material
   palette:
     - scheme: slate
-      primary: indigo
+      primary: "#445469"
       accent: indigo
   features:
     - navigation.instant
