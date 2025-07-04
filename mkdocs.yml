@@ -25,5 +25,5 @@ markdown_extensions:
     
 
 nav:
-  - Funktionen: index.md
+  - index.md
 
