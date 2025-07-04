@@ -2,7 +2,7 @@
 
 Diese Funktion überprüft, ob ein gegebener String (`val`) in einem Array (`arr`) enthalten ist. Gibt `True` zurück, wenn der String im Array gefunden wurde, andernfalls `False`.
 
-```py
+```vb
 Public Function IsInArray(val As String, arr As Variant) As Boolean
     'Prüft, ob der String val im Array arr enthalten ist.
     'Argumente:
