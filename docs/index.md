@@ -51,7 +51,7 @@ End Function
 
 Sortiert ein `Scripting.Dictionary` nach seinen Werten auf- oder absteigend und gibt das sortierte Dictionary zurück.
 
-```vb
+```vbnet
 Public Function SortDictionaryByValue(dict As Object _
                     , Optional sortorder As XlSortOrder = xlAscending) As Object
     'Sortiert ein Dictionary nach seinen Werten auf- oder absteigend.
@@ -131,7 +131,7 @@ End Function
 
 Gibt alle Keys und zugehörigen Values eines `Scripting.Dictionary` in der Debug-Konsole aus.
 
-```vb
+```vbnet
 Public Sub PrintDictionary(dict As Scripting.Dictionary)
     'Gibt alle Schlüssel und Werte des Dictionary in der Debug-Konsole aus.
     'Argumente:
@@ -154,7 +154,7 @@ End Sub
 
 Diese Funktion wandelt eine positive Ganzzahl in die entsprechende Buchstabenfolge um, wie sie beispielsweise für Spaltenbezeichnungen in Excel verwendet wird (A, B, …, Z, AA, AB, …). Dabei entspricht 1 dem Buchstaben „A“, 2 dem Buchstaben „B“ usw. Nach „Z“ wird mit „AA“ fortgesetzt. Ist die übergebene Zahl kleiner als 1, gibt die Funktion ein Minuszeichen („-“) zurück.
 
-```vb
+```vbnet
 Public Function ConvertIntegerToLetter(ByVal num As Integer) As String
     'Wandelt eine positive Ganzzahl in eine entsprechende Buchstabenfolge um, wobei 1 dem Buchstaben „A“, 2 dem Buchstaben „B“ usw. entspricht. Nach „Z“ wird mit „AA“ fortgesetzt. Dies ist nützlich für die Umwandlung von Zahlen in Buchstabenfolgen nach dem Prinzip des 26er-Systems.
     'Argumente:
@@ -185,7 +185,7 @@ End Function
 ## IsElementUnique
 
 Überprüft, ob der angegebene Wert (`searchValue`) genau einmal in den Werten eines Dictionaries vorkommt. Gibt `True` zurück, wenn der Wert einzigartig ist, andernfalls `False`.
-```vb
+```vbnet
 Public Function IsElementUnique(dict As Object, searchValue As String) As Boolean
     'Prüft, ob searchValue genau einmal als Wert im Dictionary vorkommt.
     'Argumente:
@@ -221,7 +221,7 @@ End Function
 ## IsInCollection
 Überprüft, ob ein Element mit dem Namen `sItem` bereits in einer `Collection` vorhanden ist, und gibt `True` zurück, wenn das Element existiert, andernfalls `False`.
 
-```vb
+```vbnet
 Public Function IsInCollection(oCollection As Collection, sItem As String) As Boolean
     'Prüft, ob ein Element mit dem Namen sItem in der Collection vorhanden ist.
     'Argumente:
@@ -244,7 +244,7 @@ End Function
 
 Gibt den lokalen Speicherpfad einer Datei zurück, basierend auf einem übergebenen `IEdmFile5`-Objekt. Die Funktion ermittelt dazu den zugehörigen Ordner und liefert den vollständigen Pfad der Datei im lokalen Dateisystem.
 
-```vb
+```vbnet
 Public Function GetFilePathFromIEdmFile(file As IEdmFile5) As String
         'Gibt den lokalen Speicherpfad einer Datei anhand eines IEdmFile5-Objekts zurück.
     'Argumente:
@@ -268,7 +268,7 @@ End Function
 Formatiert große Zahlen so, dass sie mit dem Suffix „k“ (für Tausender) lesbar ausgegeben werden (z.B. 1500 → 1.50k).  
 Der Rückgabewert ist ein String mit der formatierten Zahl und dem Suffix „k“.
 
-```vb
+```vbnet
 Public Function FormatNumberForReadability(num As Long) As String
     'Formatiert große Zahlen mit "k"-Suffix für Tausender (z.B. 1500 → 1.50k).
     'Argumente:
@@ -292,7 +292,7 @@ End Function
 Diese Funktion ermittelt die Anzahl der Dreiecke (Tessellation) eines SolidWorks-Modells, unabhängig davon, ob es sich um ein Teil oder eine Baugruppe handelt.  
 **Hinweis:** Das Logging-Modul muss vor der Ausführung dieser Funktion initialisiert sein, da andernfalls das Logging im Error Handler nicht funktioniert.
 
-```vb
+```vbnet
 Public Function GetGraphicsTriangles(model As ModelDoc2) As Long
     'Ermittelt die Anzahl der Grafikdreiecke (Tessellation) eines SolidWorks-Modells.
     'Argumente:
@@ -349,7 +349,7 @@ End Function
 ## FileExistsInPDM
 Prüft, ob eine Datei im PDM (Product Data Management) existiert und liefert dabei `True` zurück, wenn mindestens eine Datei mit dem angegebenen Namen gefunden wurde, ansonsten `False`.
 
-```vb
+```vbnet
 Public Function FileExistsInPDM(ByVal article As String) As Boolean
     ' Überprüft, ob eine Datei mit dem Namen `article` im PDM vorhanden ist.
     '
@@ -397,7 +397,7 @@ End Function
 ## ChangeFileExtension
 Ändert die Dateiendung eines vollständigen Pfads und gibt den neuen Pfad als `String` zurück.
 
-```vb
+```vbnet
 Public Function ChangeFileExtension(ByVal filePath As String, ByVal newExtension As String) As String
     ' Ändert die Dateiendung eines Pfads.
     '
@@ -426,7 +426,7 @@ End Function
 ## RoundUp
 Rundet eine `Double`-Zahl auf die nächsthöhere Ganzzahl auf und gibt diese als `Integer` zurück.
 
-```vb
+```vbnet
 Public Function RoundUp(ByVal Number As Double) As Integer
     ' Rundet eine Zahl auf die nächsthöhere Ganzzahl.
     '
@@ -444,7 +444,7 @@ End Function
 ## MAX
 Ermittelt das Maximum von zwei `Double`-Werten und gibt den größeren Wert zurück.
 
-```vb
+```vbnet
 Public Function MAX(val1 As Double, val2 As Double) As Double
     ' Ermittelt das Maximum zweier Werte.
     '
@@ -463,7 +463,7 @@ End Function
 ## MIN
 Ermittelt das Minimum von zwei `Double`-Werten und gibt den kleineren Wert zurück.
 
-```vb
+```vbnet
 Public Function MIN(val1 As Double, val2 As Double) As Double
     ' Ermittelt das Minimum zweier Werte.
     '
