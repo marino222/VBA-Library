@@ -28,3 +28,6 @@ nav:
   - Code: index.md
   - Info: info.md
 
+extra_css:
+  - css/extra.css
+
