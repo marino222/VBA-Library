@@ -8,3 +8,14 @@
 .md-typeset pre {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
+/* schöner, mehrstufiger Schatten für Code-Blöcke */
+.md-typeset pre {
+  border-radius: 0.5rem;               /* bereits vorhanden */
+  overflow: auto;                      /* bereits vorhanden */
+  box-shadow:
+    /* großer, diffuser Schatten unten */
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    /* kleiner, schmaler Schatten näher an der Box */
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
