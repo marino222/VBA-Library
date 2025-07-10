@@ -32,16 +32,22 @@ Public Function ExtractFileNameFromPath(path As String, includeFileExtension As 
     '    - includeFileExtension (Boolean): True, wenn die Dateiendung enthalten sein soll.
     'Rückgabewert: Dateiname als String (mit oder ohne Endung).
 
-    Dim fileNameExtension As String
-    fileNameExtension = Mid(path, InStrRev(path, "\") + 1) 'Dateiname inkl. Dateiendung extrahieren
+    Dim nameWithExt As String
+    Dim dotPos      As Long
 
-    'Prüfen, ob Dateiendung auch berücksichtigt werden soll
-    If includeFileExtension = True Then
-        ExtractFileNameFromPath = fileNameExtension
+    ' Alles hinter dem letzten "\" abschneiden
+    nameWithExt = Mid(fullPath, InStrRev(fullPath, "\") + 1)
+    
+    If includeExtension Then
+        ExtractFileNameFromPath = nameWithExt
     Else
-        'Dateiendung entfernen, indem 7 Zeichen von Rechts entfernt werden
-        'Alle möglichen SolidWorks Dateiendungen sind 6 Zeichen lang plus der Punkt
-        ExtractFileNameFromPath = Left(fileNameExtension, Len(fileNameExtension) - 7)
+        dotPos = InStrRev(nameWithExt, ".")
+        If dotPos > 0 Then
+            ExtractFileNameFromPath = Left(nameWithExt, dotPos - 1)
+        Else
+            ' Kein Punkt gefunden ? gib kompletten Namen zurück
+            ExtractFileNameFromPath = nameWithExt
+        End If
     End If
 
 End Function
@@ -536,5 +542,115 @@ Public Function EnsureFileIsCheckedOut(modelDoc As SldWorks.ModelDoc2) As Intege
 End Function
 ```
 
+## FileExistsInPDM
+Die Funktion FileExistsInPDM nimmt als Argumente ein verbundenes Vault-Objekt (vault As IEdmVault5), 
+einen Zielordner im PDM (pdmFolder As IEdmFolder5) und einen Dateinamen inkl. Erweiterung (fileName As String) entgegen, 
+setzt daraus den vollständigen Vault-Pfad zusammen und versucht, die Datei aus dem Vault zu laden. 
+Sie liefert als Rückgabewert einen Boolean: True, wenn die Datei im Vault existiert, andernfalls False.
+
+```vbnet
+Public Function FileExistsInPDM(ByVal vault As IEdmVault5, ByVal pdmFolder As IEdmFolder5, _
+                                ByVal fileName As String) As Boolean
+    'Prüft, ob eine Datei im PDM existiert.
+    '
+    ' Argumente:
+    '   vault     As IEdmVault5   – Verbundenes Vault-Objekt
+    '   pdmFolder As IEdmFolder5  – Zielordner im Vault
+    '   fileName  As String        – Dateiname inkl. Erweiterung
+    '
+    ' Rückgabewert:
+    '   Boolean – True, wenn die Datei im Vault existiert; sonst False
+
+    Dim fullVaultPath As String
+    Dim existingFile As IEdmFile5
+
+    ' Vollständigen Vault-Pfad zusammensetzen
+    fullVaultPath = pdmFolder.localPath & "\" & fileName
+
+    ' Existenz im Vault prüfen
+    Set existingFile = vault.GetFileFromPath(fullVaultPath, pdmFolder)
+    FileExistsInPDM = Not existingFile Is Nothing
+
+End Function
+```
+
+## AddFileToPDM
+Die Funktion AddFileToPDM fügt eine durch localPath As String spezifizierte lokale Datei in das PDM-Vault (vault As IEdmVault5) 
+im Zielordner (pdmFolder As IEdmFolder8) ein und kann eine bereits vorhandene Datei bei gesetztem Optional overwrite As Boolean = False überschreiben. 
+Sie gibt True zurück, wenn das Hinzufügen (oder Überschreiben) erfolgreich war, andernfalls False.
+
+```vbnet
+Public Function AddFileToPDM(ByVal localPath As String, ByVal vault As IEdmVault5, ByVal pdmFolder As IEdmFolder8, _
+                                Optional ByVal overwrite As Boolean = False) As Boolean
+    '   Fügt eine lokale Datei ins PDM ein. Existiert die Datei bereits,
+    '   kann sie optional überschrieben werden.
+    '
+    ' Argumente:
+    '   localPath As String             – Vollständiger lokaler Pfad zur Quelldatei
+    '   vault     As IEdmVault5         – Verbundenes PDM-Vault-Objekt
+    '   pdmFolder As IEdmFolder8        – Zielordner im Vault
+    '   Optional overwrite As Boolean   – True: vorhandene Datei überschreiben
+    '
+    ' Rückgabewert:
+    '   Boolean – True, wenn die Datei erfolgreich hinzugefügt (oder überschrieben) wurde
+                                
+    Dim fileName As String
+    Dim fullVaultPath As String
+    Dim existingFile As IEdmFile5
+    Dim fileID As Long
+    Dim deleteErr As Long
+
+    If Dir(localPath) = "" Then
+        'Zwischengespeicherte Datei in Temp existiert nicht
+        Logger.logError "Lokale Datei nicht gefunden: " & localPath, "AddFileToPDM"
+        AddFileToPDM = False
+        Exit Function
+    End If
+
+    fileName = ExtractFileNameFromPath(localPath, True) 'Dateiname aus Pfad bestimmen
+    fullVaultPath = pdmFolder.localPath & "\" & fileName 'Zielpfad im PDM
+    
+    'Prüfen, ob die Datei im PDM bereits existiert
+    If FileExistsInPDM(vault, pdmFolder, fileName) Then
+        If overwrite Then
+            'Datei existiert und soll überschrieben werden
+            Set existingFile = vault.GetFileFromPath(fullVaultPath, pdmFolder) 'Bestehende Datei holen
+            If Not existingFile Is Nothing Then
+            
+                On Error Resume Next
+                pdmFolder.DeleteFile 0, existingFile.ID, True 'Versuch, Datei zu löschen
+                deleteErr = Err.Number
+                On Error GoTo 0
+
+                If deleteErr <> 0 Then
+                    Logger.logWarn "Fehler beim Löschen bestehender Datei aus dem PDM: 0x" & Hex(deleteErr) & _
+                                    " Pfad: " & fullVaultPath, "AddFileToPDM"
+                    AddFileToPDM = False
+                    Exit Function
+                End If
+            End If
+            
+        Else
+            ' Datei existiert, aber kein Überschreiben
+            Logger.logInfo "Datei " & ExtractFileNameFromPath(localPath, True) & " existiert bereits in " & _
+                            pdmFolder.localPath & " (Overwrite=False)", "AddFileToPDM"
+            AddFileToPDM = False
+            Exit Function
+        End If
+    End If
+    
+    On Error Resume Next
+    fileID = pdmFolder.AddFile(0, localPath, "", EdmAdd_DeleteSource)
+    On Error GoTo 0
+
+    If fileID <> 0 Then
+        AddFileToPDM = True
+    Else
+        Logger.logWarn "Fehler beim Hinzufügen von " & fileName & " nach " & pdmFolder.localPath, "AddFileToPDM"
+        AddFileToPDM = False
+    End If
+    
+End Function
+```
 
 
